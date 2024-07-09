@@ -17,8 +17,8 @@ function PlaceForm() {
           onChangeText={changeTitleHandler}
           value={enteredTitle}
         />
+        <ImagePicker />
       </View>
-      <ImagePicker />
     </ScrollView>
   );
 }
