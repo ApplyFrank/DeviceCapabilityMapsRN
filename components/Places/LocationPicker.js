@@ -83,8 +83,8 @@ function LocationPicker({ onPickLocation }) {
   let locationPreview = <Text>No location picked yet.</Text>;
 
   if (pickedLocation) {
-    console.log(pickedLocation.lat);
-    console.log(getMapPreview(pickedLocation.lat, pickedLocation.lng));
+    // console.log(pickedLocation.lat);
+    // console.log(getMapPreview(pickedLocation.lat, pickedLocation.lng));
     locationPreview = (
       <Image
         style={styles.image}
