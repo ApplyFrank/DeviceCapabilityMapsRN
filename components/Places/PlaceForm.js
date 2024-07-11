@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, ScrollView, TextInput } from "react-native";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Colors } from "../../constants/colors";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
@@ -7,9 +7,27 @@ import Button from "../UI/Button";
 
 function PlaceForm() {
   const [enteredTitle, setEnteredTitle] = useState("");
-  function savePlaceHandler() {}
+  const [selectedImage, setSelectedImage] = useState();
+  const [pickedLocation, setPickedLocation] = useState();
+
+  function takeImageHandler(imageUri) {
+    setSelectedImage(imageUri);
+  }
+
+  // NOTE since in location picker we have pickLocationHandler in a useEffect dependency array, we want to have
+  // this function in a useCallback to reduce the number of calls
+  const pickLocationHandler = useCallback((location) => {
+    setPickedLocation(location);
+  }, []);
+
   function changeTitleHandler(enteredText) {
     setEnteredTitle(enteredText);
+  }
+
+  function savePlaceHandler() {
+    console.log(enteredTitle);
+    console.log(selectedImage);
+    console.log(pickedLocation);
   }
   return (
     <ScrollView>
@@ -20,8 +38,8 @@ function PlaceForm() {
           onChangeText={changeTitleHandler}
           value={enteredTitle}
         />
-        <ImagePicker />
-        <LocationPicker />
+        <ImagePicker onTakeImage={takeImageHandler} />
+        <LocationPicker onPickLocation={pickLocationHandler} />
         <Button onPress={savePlaceHandler}>Add Place</Button>
       </View>
     </ScrollView>

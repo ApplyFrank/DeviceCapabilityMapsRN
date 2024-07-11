@@ -8,7 +8,8 @@ import {
 import { Colors } from "../../constants/colors";
 import OutlinedButton from "../UI/OutlinedButton";
 
-function ImagePicker() {
+//NOTE the reason its {onTakeImage} is because we must destructure it from the incoming prop object
+function ImagePicker({ onTakeImage }) {
   const [pickedImageUri, setPickedImageUri] = useState("");
   const [cameraPermissionInformation, requestPermission] =
     useCameraPermissions();
@@ -43,6 +44,7 @@ function ImagePicker() {
     });
     console.log("image uri here ", image.assets[0].uri);
     setPickedImageUri(image.assets[0].uri);
+    onTakeImage(image.assets[0].uri);
   }
 
   let imagePreview = <Text>No image taken yet.</Text>;
