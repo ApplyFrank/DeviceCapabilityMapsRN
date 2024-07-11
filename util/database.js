@@ -76,8 +76,19 @@ export async function fetchPlaceDetails(id) {
       `SELECT * FROM places WHERE id = ?`,
       [id]
     );
-    console.log("FETCH place DETAIL ", results);
-    return results[0];
+    const dbPlace = results[0];
+    const place = new Place(
+      dbPlace.title,
+      dbPlace.imageUri,
+      {
+        address: dbPlace.address,
+        lat: dbPlace.lat,
+        lng: dbPlace.lng,
+      },
+      dbPlace.id
+    );
+    console.log("FETCH place DETAIL ", place);
+    return place;
   } catch (error) {
     console.log("fetch placeDetails error ", error);
   }
