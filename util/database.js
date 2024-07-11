@@ -68,3 +68,17 @@ export async function fetchPlaces() {
     console.log("fetch place error ", error);
   }
 }
+
+export async function fetchPlaceDetails(id) {
+  const database = await SQLite.openDatabaseAsync("places.db");
+  try {
+    const results = await database.getAllAsync(
+      `SELECT * FROM places WHERE id = ?`,
+      [id]
+    );
+    console.log("FETCH place DETAIL ", results);
+    return results[0];
+  } catch (error) {
+    console.log("fetch placeDetails error ", error);
+  }
+}
